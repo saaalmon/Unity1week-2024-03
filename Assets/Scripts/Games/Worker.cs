@@ -26,10 +26,4 @@ public class Worker : MonoBehaviour
     })
     .AddTo(this);
   }
-
-  // Update is called once per frame
-  void Update()
-  {
-
-  }
 }

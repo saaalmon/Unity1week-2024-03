@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
-using UniRx.Triggers;
-using System;
 
 public class ItemManager : MonoBehaviour
 {
@@ -20,19 +17,26 @@ public class ItemManager : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
-    Observable
-    .Interval(TimeSpan.FromSeconds(_interval))
-    .Subscribe(_ =>
-    {
-      Generate();
-    })
-    .AddTo(this);
+
   }
 
-  // Update is called once per frame
-  void Update()
+  public void Interval()
   {
+    _timer += Time.deltaTime;
 
+    if (_timer >= _interval)
+    {
+      _timer = 0;
+      Generate();
+    }
+
+    // Observable
+    // .Interval(System.TimeSpan.FromSeconds(_interval))
+    // .Subscribe(_ =>
+    // {
+    //   Generate();
+    // })
+    // .AddTo(this);
   }
 
   public void Generate()
