@@ -14,12 +14,6 @@ public class ItemManager : MonoBehaviour
 
   private float _timer;
 
-  // Start is called before the first frame update
-  void Start()
-  {
-
-  }
-
   public void Interval()
   {
     _timer += Time.deltaTime;
@@ -29,14 +23,6 @@ public class ItemManager : MonoBehaviour
       _timer = 0;
       Generate();
     }
-
-    // Observable
-    // .Interval(System.TimeSpan.FromSeconds(_interval))
-    // .Subscribe(_ =>
-    // {
-    //   Generate();
-    // })
-    // .AddTo(this);
   }
 
   public void Generate()
