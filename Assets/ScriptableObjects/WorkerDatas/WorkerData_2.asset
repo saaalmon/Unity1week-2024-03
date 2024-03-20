@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: d0aa214d17a5149b79ab87083b89c294, type: 3}
   Name: Syake_2
-  Motiv: 2
-  Interval: 0.5
+  MotivMax: 3
+  Interval: 1

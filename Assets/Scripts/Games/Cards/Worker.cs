@@ -11,9 +11,6 @@ public class Worker : MonoBehaviour
   [SerializeField]
   private BoxCollider _itemCollider;
 
-  private float _interval;
-  private float _timer;
-
   private WorkerModel _model;
   public WorkerModel Model => _model;
 
@@ -23,30 +20,42 @@ public class Worker : MonoBehaviour
 
     _model = model;
     sr.sprite = _model.Data.Icon;
-    _interval = _model.Data.Interval;
 
     _itemCollider
     .OnTriggerEnterAsObservable()
+    .Where(_ => _model.State.Value == WorkState.WAITING)
     .Where(x => x.TryGetComponent(out Item item))
-    .ThrottleFirst(System.TimeSpan.FromSeconds(_interval))
     .Select(x => x.GetComponent<Item>())
     .Subscribe(x =>
     {
       Destroy(x.gameObject);
+      _model.ChangeState(WorkState.WORKING);
     })
     .AddTo(this);
 
-    this.UpdateAsObservable()
+    _model.Motiv
+    .Subscribe(x =>
+    {
+      _model.WorkCapability();
+    })
+    .AddTo(this);
+
+    _model.Motiv
+    .Where(x => x <= 0)
     .Subscribe(_ =>
     {
-      if (model.State.Value == WorkState.RESTING)
-      {
-        model.MotivAdd();
-      }
+      _model.ChangeState(WorkState.RESTING);
+      Destroy(this.gameObject);
+    })
+    .AddTo(this);
 
-      if (model.State.Value == WorkState.WORKING)
+    _model.Timer
+    .Subscribe(x =>
+    {
+      if (x >= _model.Interval.Value)
       {
-        model.MotivSub();
+        _model.Timer.Value = 0;
+        _model.ChangeState(WorkState.WAITING);
       }
     })
     .AddTo(this);

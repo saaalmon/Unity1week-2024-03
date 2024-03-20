@@ -1065,6 +1065,83 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1299460150}
   m_SourcePrefab: {fileID: 100100000, guid: 91e03ff84694b4742b4d233507afb416, type: 3}
+--- !u!1 &110679149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 110679153}
+  - component: {fileID: 110679150}
+  - component: {fileID: 110679152}
+  - component: {fileID: 110679151}
+  m_Layer: 0
+  m_Name: WokerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &110679150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110679149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75fea6c2bd0f4287a467148b64117c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _datas:
+  - {fileID: 11400000, guid: 0bcf5acd5316146f78a0cce342343f43, type: 2}
+  - {fileID: 11400000, guid: e29d7f589476c4efb80078989786d679, type: 2}
+  _worker: {fileID: -31903979346500616, guid: 4acc9a2e62ed8417494a6ac1ff26f1d5, type: 3}
+--- !u!114 &110679151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110679149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5080cc3fa6794da4845bbf4216c20e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &110679152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110679149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6d213fc8862478ab5fa500c6874249, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _manager: {fileID: 110679150}
+  _presenter: {fileID: 110679151}
+  _view: {fileID: 3731325579851553422, guid: 9907328c2a908421c861d744772b38f2, type: 3}
+--- !u!4 &110679153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110679149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &136544950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1856,11 +1933,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 220052163}
-  - component: {fileID: 220052162}
   - component: {fileID: 220052161}
   - component: {fileID: 220052160}
   m_Layer: 0
-  m_Name: WokerManager
+  m_Name: WokerCardManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1890,26 +1966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62eb154b31a5451f9002988f60473c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 220052162}
+  _manager: {fileID: 110679150}
   _presenter: {fileID: 220052160}
   _view: {fileID: 4527214630594437162, guid: fb611dbb28fff4f70b6b9e9b25c1751f, type: 3}
   _parent: {fileID: 14354570}
---- !u!114 &220052162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 220052159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a75fea6c2bd0f4287a467148b64117c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _datas:
-  - {fileID: 11400000, guid: 0bcf5acd5316146f78a0cce342343f43, type: 2}
-  - {fileID: 11400000, guid: e29d7f589476c4efb80078989786d679, type: 2}
-  _worker: {fileID: -31903979346500616, guid: 4acc9a2e62ed8417494a6ac1ff26f1d5, type: 3}
 --- !u!4 &220052163
 Transform:
   m_ObjectHideFlags: 0
@@ -5841,7 +5901,7 @@ MonoBehaviour:
   _prefab: {fileID: -6455450958369211562, guid: 0ff8b0405bab74e0c84e7e426223226e,
     type: 3}
   _point: {fileID: 897702905}
-  _interval: 0.5
+  _interval: 0.2
 --- !u!4 &785323264
 Transform:
   m_ObjectHideFlags: 0
@@ -12230,6 +12290,7 @@ SceneRoots:
   - {fileID: 1481292172}
   - {fileID: 1365351196}
   - {fileID: 785323264}
+  - {fileID: 110679153}
   - {fileID: 220052163}
   - {fileID: 1425677939}
   - {fileID: 403556888}

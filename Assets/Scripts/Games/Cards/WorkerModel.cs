@@ -5,6 +5,7 @@ using UniRx;
 
 public enum WorkState
 {
+  WAITING,
   WORKING,
   RESTING,
 }
@@ -14,11 +15,20 @@ public class WorkerModel
   public IReactiveProperty<WorkState> State => _state;
   private readonly ReactiveProperty<WorkState> _state = new ReactiveProperty<WorkState>();
 
-  private float _motivMax;
-  private float _interval;
+  public IReactiveProperty<float> Motiv => _motiv;
+  private readonly FloatReactiveProperty _motiv = new FloatReactiveProperty();
 
-  private float _motiv;
-  private float _timer;
+  public IReactiveProperty<float> Timer => _timer;
+  private readonly FloatReactiveProperty _timer = new FloatReactiveProperty();
+
+  public IReactiveProperty<float> Interval => _interval;
+  private readonly FloatReactiveProperty _interval = new FloatReactiveProperty();
+
+  private float _intervalDef;
+  public float IntervalDef => _intervalDef;
+
+  private float _motivMax;
+  public float MotivMax => _motivMax;
 
   private WorkerData _data;
   public WorkerData Data => _data;
@@ -29,9 +39,10 @@ public class WorkerModel
 
     _data = data;
     _motivMax = _data.MotivMax;
-    _interval = _data.Interval;
+    _intervalDef = _data.Interval;
 
-    _motiv = _motivMax;
+    _motiv.Value = _motivMax;
+    _interval.Value = _intervalDef;
   }
 
   public void ChangeState(WorkState state)
@@ -41,13 +52,29 @@ public class WorkerModel
 
   public void MotivAdd()
   {
-    _motiv += Time.deltaTime;
-    if (_motiv >= _motivMax) _motiv = _motivMax;
+    _motiv.Value += Time.deltaTime;
+    if (_motiv.Value >= _motivMax) _motiv.Value = _motivMax;
   }
 
   public void MotivSub()
   {
-    _motiv -= Time.deltaTime;
-    if (_motiv <= 0) _motiv = 0;
+    _motiv.Value -= Time.deltaTime;
+    if (_motiv.Value <= 0) _motiv.Value = 0;
+  }
+
+  public void WorkInterval()
+  {
+    _timer.Value += Time.deltaTime;
+  }
+
+  public void WorkCapability()
+  {
+    var ratio = (float)_motiv.Value / _motivMax;
+
+    if (ratio > 0.75f) _interval.Value = _intervalDef * 0.5f;
+    else if (ratio > 0.5f) _interval.Value = _intervalDef * 0.8f;
+    else _interval.Value = _intervalDef;
+
+    Debug.Log(_interval.Value);
   }
 }
