@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c960a3b9341c44bbb085eec39ae091d, type: 3}
-  m_Name: WorkerData_2
+  m_Name: WorkerData_3
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 92a2ccc805c5147af92d5769919b1671, type: 3}
-  Name: Chara_2
-  MotivMax: 3
-  Interval: 1.5
+  Icon: {fileID: 21300000, guid: beba56421c6134714b5b4597defb49f5, type: 3}
+  Name: Chara_3
+  MotivMax: 6
+  Interval: 2

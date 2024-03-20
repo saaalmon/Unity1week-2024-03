@@ -1099,6 +1099,7 @@ MonoBehaviour:
   _datas:
   - {fileID: 11400000, guid: 0bcf5acd5316146f78a0cce342343f43, type: 2}
   - {fileID: 11400000, guid: e29d7f589476c4efb80078989786d679, type: 2}
+  - {fileID: 11400000, guid: 53de9a82e41a84fd996665c18914e215, type: 2}
   _worker: {fileID: -31903979346500616, guid: 4acc9a2e62ed8417494a6ac1ff26f1d5, type: 3}
 --- !u!114 &110679151
 MonoBehaviour:
@@ -5901,7 +5902,7 @@ MonoBehaviour:
   _prefab: {fileID: -6455450958369211562, guid: 0ff8b0405bab74e0c84e7e426223226e,
     type: 3}
   _point: {fileID: 897702905}
-  _interval: 0.2
+  _interval: 0.5
 --- !u!4 &785323264
 Transform:
   m_ObjectHideFlags: 0
