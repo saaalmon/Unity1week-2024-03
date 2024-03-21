@@ -13,7 +13,7 @@ public class Item : MonoBehaviour
   {
     rb = GetComponent<Rigidbody>();
 
-    rb.velocity = Vector3.left * _speed;
+    rb.velocity = Vector3.right * _speed;
 
     Destroy(gameObject, 5.0f);
   }
