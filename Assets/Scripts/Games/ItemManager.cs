@@ -10,9 +10,29 @@ public class ItemManager : MonoBehaviour
   private Transform _point;
 
   [SerializeField]
-  private float _interval;
+  private float _intervalMax;
+  [SerializeField]
+  private float _intervalMin;
+  [SerializeField]
+  private float _intervalFever;
+
+  [SerializeField]
+  private float _itemSpeed;
+  [SerializeField]
+  private float _itemSpeedFever;
+
+  [SerializeField]
+  private float _feverTime;
+
+  private float _timerFever;
 
   private float _timer;
+  private float _interval;
+
+  public void Init()
+  {
+    _interval = Random.Range(_intervalMin, _intervalMax);
+  }
 
   public void Interval()
   {
@@ -21,13 +41,26 @@ public class ItemManager : MonoBehaviour
     if (_timer >= _interval)
     {
       _timer = 0;
-      Generate();
+      Generate(_itemSpeed);
+      Init();
     }
   }
 
-  public void Generate()
+  public void FeverInternal()
+  {
+    _timer += Time.deltaTime;
+
+    if (_timer >= _intervalFever)
+    {
+      _timer = 0;
+      Generate(_itemSpeedFever);
+      Init();
+    }
+  }
+
+  public void Generate(float speed)
   {
     var item = Instantiate(_prefab, _point.position, Quaternion.identity);
-    item.Init();
+    item.Init(speed);
   }
 }

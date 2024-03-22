@@ -7,13 +7,15 @@ public class Item : MonoBehaviour
   private Rigidbody rb;
 
   [SerializeField]
-  private float _speed;
+  private int _money;
 
-  public void Init()
+  public int Money => _money;
+
+  public void Init(float speed)
   {
     rb = GetComponent<Rigidbody>();
 
-    rb.velocity = Vector3.right * _speed;
+    rb.velocity = Vector3.right * speed;
 
     Destroy(gameObject, 5.0f);
   }
