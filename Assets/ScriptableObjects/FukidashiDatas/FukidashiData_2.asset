@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e01f55f18f0f44b4865f6fe145220cb, type: 3}
+  m_Name: FukidashiData_2
+  m_EditorClassIdentifier: 
+  Fukidashi: {fileID: -2413806693520163455, guid: aa68cb59f4c9347748935ce4e0f8eb48,
+    type: 3}
+  Text: BBBBBB
