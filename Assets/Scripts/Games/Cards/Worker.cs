@@ -37,10 +37,10 @@ public class Worker : MonoBehaviour
       _model.ChangeState(WorkState.WORKING);
       Instantiate(_workParticle, transform.position, Quaternion.identity);
 
-      // var seq = DOTween.Sequence()
-      // .Append(transform.DOScaleY(0.5f, _model.Interval.Value / 2))
-      // .Append(transform.DOScaleY(1.0f, _model.Interval.Value / 2))
-      // .Play();
+      var seq = DOTween.Sequence()
+      .Append(transform.DOScaleY(0.5f, _model.Interval.Value / 2))
+      .Append(transform.DOScaleY(1.0f, _model.Interval.Value / 2))
+      .Play();
     })
     .AddTo(this);
 

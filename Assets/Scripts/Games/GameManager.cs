@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     NORMAL,
     IDLE,
     FEVER,
+    RESULT,
   }
 
   [SerializeField]
@@ -31,6 +33,9 @@ public class GameManager : MonoBehaviour
 
   private float _timerFever;
 
+  public ISubject<int> ResultSubject => _resultSubject;
+  private readonly Subject<int> _resultSubject = new Subject<int>();
+
   // Start is called before the first frame update
   async UniTask Start()
   {
@@ -44,6 +49,11 @@ public class GameManager : MonoBehaviour
             .Subscribe(_ =>
             {
               _timeManager.Sub(Time.deltaTime);
+
+              if (_timeManager.Timer.Value <= 0)
+              {
+                _state = GameState.RESULT;
+              }
 
               if (_state == GameState.FEVER)
               {
@@ -75,11 +85,29 @@ public class GameManager : MonoBehaviour
     })
     .AddTo(this);
 
-    await UniTask.WaitUntil(() => _timeManager.Timer.Value <= 0);
+    await UniTask.WaitUntil(() => _state == GameState.RESULT);
 
     updateObservable.Dispose();
+    _resultSubject.OnNext(_moneyManager.Money.Value);
 
     _resultCanvas.gameObject.SetActive(true);
+
+    this.UpdateAsObservable()
+    .Where(_ => Input.GetKeyDown(KeyCode.Space))
+    .Subscribe(_ =>
+    {
+      SceneManager.LoadScene("TitleScene");
+    })
+    .AddTo(this);
+
+    // this.UpdateAsObservable()
+    // .Where(_ => Input.GetKeyDown(KeyCode.X))
+    // .Subscribe(_ =>
+    // {
+    //   ChangeState(GameState.FEVER).Forget();
+    // })
+    // .AddTo(this);
+
     Debug.Log("終了");
   }
 

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: beba56421c6134714b5b4597defb49f5, type: 3}
   Name: Chara_3
-  MotivMax: 6
+  MotivMax: 20
   Interval: 2

@@ -9,6 +9,6 @@ public class TitleMainUseCase : MonoBehaviour
   {
     Debug.Log("開始");
 
-    SceneManager.LoadScene("TitleScene");
+    SceneManager.LoadScene("GameScene");
   }
 }
