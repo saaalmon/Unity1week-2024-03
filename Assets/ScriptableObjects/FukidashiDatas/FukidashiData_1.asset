@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e01f55f18f0f44b4865f6fe145220cb, type: 3}
   m_Name: FukidashiData_1
   m_EditorClassIdentifier: 
-  Fukidashi: {fileID: -2413806693520163455, guid: aa68cb59f4c9347748935ce4e0f8eb48,
-    type: 3}
+  Fukidashi: {fileID: 21300000, guid: fd8e086f51aee4df99796da27cf89d63, type: 3}
   Text: AAAAAA

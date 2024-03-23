@@ -8,7 +8,7 @@ using TMPro;
 
 namespace Game
 {
-  public class Fukidashi : MonoBehaviour
+  public class Fukidashi : MonoBehaviour, IHitable
   {
     private Rigidbody rb;
     private BoxCollider coll;
@@ -35,16 +35,20 @@ namespace Game
       Destroy(gameObject, 5.0f);
 
       coll.OnTriggerEnterAsObservable()
-      .Skip(1)
       .Subscribe(x =>
       {
         if (x.TryGetComponent(out IHitable hitable))
         {
-          Destroy(gameObject);
+          if (this.gameObject.layer == 8) Destroy(gameObject);
           hitable.Hit();
         }
       })
       .AddTo(this);
+    }
+
+    public void Hit()
+    {
+
     }
   }
 }

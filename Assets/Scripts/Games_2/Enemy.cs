@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UniRx;
+using UniRx.Triggers;
+using Cinemachine;
 
 namespace Game
 {
   public class Enemy : MonoBehaviour, IHitable
   {
     private SpriteRenderer sp;
+    private CinemachineImpulseSource _imp;
 
     [SerializeField]
     private Fukidashi _prefab;
@@ -15,6 +19,9 @@ namespace Game
     private float _fukiSpeed;
     [SerializeField]
     private int _count;
+
+    public ISubject<Unit> DestroySubject => _destroySubject;
+    private readonly Subject<Unit> _destroySubject = new Subject<Unit>();
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +38,7 @@ namespace Game
     public void Init(Sprite sprite)
     {
       sp = GetComponent<SpriteRenderer>();
+      _imp = GetComponent<CinemachineImpulseSource>();
 
       sp.sprite = sprite;
 
@@ -39,6 +47,10 @@ namespace Game
 
     public void Hit()
     {
+      _imp.GenerateImpulse();
+      ComboManager._instance?.Add();
+      ScoreManager._instance?.Add(1000);
+      _destroySubject.OnNext(Unit.Default);
       Destroy(gameObject);
     }
 

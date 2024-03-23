@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using Cysharp.Threading.Tasks;
 
 namespace Game
 {
@@ -17,7 +19,7 @@ namespace Game
     // Start is called before the first frame update
     void Start()
     {
-      GenerateEnemy();
+
     }
 
     // Update is called once per frame
@@ -26,11 +28,24 @@ namespace Game
 
     }
 
+    public void Init()
+    {
+      GenerateEnemy();
+    }
+
     public void GenerateEnemy()
     {
       var spriteRand = Random.Range(0, _enemySprites.Length);
       var enemy = Instantiate(_prefab, _enemyPos.position, Quaternion.identity);
       enemy.Init(_enemySprites[spriteRand]);
+
+      enemy.DestroySubject
+      .Delay(System.TimeSpan.FromSeconds(1.0f))
+      .Subscribe(_ =>
+      {
+        GenerateEnemy();
+      })
+      .AddTo(this);
     }
   }
 }
