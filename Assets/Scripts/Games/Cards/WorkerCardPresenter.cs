@@ -39,16 +39,25 @@ public class WorkerCardPresenter : MonoBehaviour
     })
     .AddTo(this);
 
+    model.Motiv
+    .Subscribe(x =>
+    {
+      view.SetMotiv(x, model.MotivMax);
+    })
+    .AddTo(view);
+
     model.State
     .Subscribe(x =>
     {
       if (x == WorkState.RESTING)
       {
         view.WorkerCardButton.interactable = true;
+        view.SetMotivActive(true);
       }
-      else if (x == WorkState.WORKING)
+      else if (x == WorkState.WAITING || x == WorkState.WORKING)
       {
         view.WorkerCardButton.interactable = false;
+        view.SetMotivActive(false);
       }
     })
     .AddTo(this);

@@ -15,6 +15,6 @@ public class WorkerPoint : MonoBehaviour
     }
 
     _worker = worker;
-    _worker.Model.ChangeState(WorkState.WORKING);
+    _worker.Model.ChangeState(WorkState.WAITING);
   }
 }

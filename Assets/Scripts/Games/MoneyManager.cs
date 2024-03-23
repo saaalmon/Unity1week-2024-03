@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class moneyManager : MonoBehaviour
+public class MoneyManager : MonoBehaviour
 {
   [SerializeField]
   private int _moneyMax;
+
+  public static MoneyManager _instance;
 
   public IReadOnlyReactiveProperty<int> Money => _money;
   private IntReactiveProperty _money = new IntReactiveProperty(0);
 
   public void Init()
   {
-    _money.Value = _moneyMax;
+    _instance = this;
+    _money.Value = 0;
   }
 
   public void Set(int money)
