@@ -51,6 +51,8 @@ namespace Game
           if (this.gameObject.layer == 8)
           {
             imp.GenerateImpulse();
+            SoundManager._instance?.PlaySE("Hit_Fukidashi", Random.Range(0.5f, 1.5f));
+
             Instantiate(_hitParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
           }

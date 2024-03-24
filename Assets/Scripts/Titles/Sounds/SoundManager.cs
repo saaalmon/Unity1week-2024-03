@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UniRx;
+using DG.Tweening;
 
 public class SoundManager : MonoBehaviour
 {
@@ -122,7 +123,7 @@ public class SoundManager : MonoBehaviour
     return null;
   }
 
-  public void PlayBGM(string name, bool isloop = true)
+  public void PlayBGM(string name, float pitch = 1, bool isloop = true)
   {
     if (_bgmSoundDictionary.TryGetValue(name, out var audio))
     {
@@ -130,6 +131,7 @@ public class SoundManager : MonoBehaviour
       if (audioSource == null) return;
 
       audioSource.clip = audio;
+      audioSource.pitch = pitch;
       audioSource.loop = isloop;
       audioSource.Play();
       Debug.Log(audio);
@@ -141,7 +143,7 @@ public class SoundManager : MonoBehaviour
     }
   }
 
-  public void PlaySE(string name)
+  public void PlaySE(string name, float pitch = 1)
   {
     if (_seSoundDictionary.TryGetValue(name, out var audio))
     {
@@ -149,6 +151,8 @@ public class SoundManager : MonoBehaviour
       if (audioSource == null) return;
 
       audioSource.clip = audio;
+      audioSource.pitch = pitch;
+
       audioSource.Play();
       Debug.Log(audio);
     }

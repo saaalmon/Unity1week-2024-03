@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4827619187410855539}
   - component: {fileID: 2834729033334912649}
   - component: {fileID: 3470212433237088816}
+  - component: {fileID: 2993532460430243092}
+  - component: {fileID: -7158600824990136988}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -77,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: -1730963317
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7142bb57f2d6e47ebbeb172406c5b1d2, type: 3}
+  m_Sprite: {fileID: 1683910798, guid: 79a5d214ba6bf457982ccc1d579b5a1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,8 +136,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.4, z: 1}
-  m_Center: {x: 0, y: -0.3, z: 0}
+  m_Size: {x: 2, y: 3, z: 2}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &2834729033334912649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188cec3bf77dd49d1bc1e9b9aaf509b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fukiImp: {fileID: 2993532460430243092}
+  _hitImp: {fileID: 3470212433237088816}
+  sprites: []
   _prefab: {fileID: 7361982253447968365, guid: b95d722af09b34df8b746bebf1582bd8, type: 3}
   _fukiSpeed: 8
 --- !u!114 &3470212433237088816
@@ -203,3 +208,77 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0.5, y: 0.5, z: 0}
+--- !u!114 &2993532460430243092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463426550424759189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 3
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.1
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!95 &-7158600824990136988
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463426550424759189}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df3f87cafcce343f986b4089e2f2b82a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

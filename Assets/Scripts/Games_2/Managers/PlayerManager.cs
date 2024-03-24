@@ -82,6 +82,8 @@ namespace Game
               Destroy(_keyImageList[0].gameObject);
               _keyImageList.RemoveAt(0);
 
+              SoundManager._instance?.PlaySE("Input_Correct");
+
               if (_keyImageList.Count > 0) _keyImageList[0].transform.localScale = Vector3.one * 2f;
 
               if (_timer <= 0.5f) ScoreManager._instance?.Add(300);
@@ -108,10 +110,16 @@ namespace Game
 
     public void FeverJadge()
     {
-      if (!_isFever && _comboManager.Combo.Value % _feverComboCountMax == 0 && _comboManager.Combo.Value != 0)
+      if (!_isFever && _feverComboCount >= _feverComboCountMax)
       {
         _isFever = true;
+        _feverComboCount = 0;
+        _feverComboCountMax *= 2;
+
         _feverCount = _feverCountMax;
+
+        SoundManager._instance?.StopBGM();
+        SoundManager._instance?.PlayBGM("BGM_Fever");
 
         _feverParticle.Play(true);
 
@@ -132,6 +140,9 @@ namespace Game
 
         _feverParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
+        SoundManager._instance?.StopBGM();
+        SoundManager._instance?.PlayBGM("BGM_Game");
+
         var seq = DOTween.Sequence()
         .Append(DOTween.To(() => _defaultLight.intensity,
                             (x) => _defaultLight.intensity = x,
@@ -142,6 +153,7 @@ namespace Game
         .Play();
       }
       else if (_isFever) _feverCount--;
+      else if (!_isFever) _feverComboCount++;
 
       if (_isFever) GenerateFeverKeyCode();
       else GenerateKeyCode();

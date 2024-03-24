@@ -8,7 +8,15 @@ namespace Game
 {
   public class Player : MonoBehaviour, IHitable
   {
-    private CinemachineImpulseSource _imp;
+    private Animator _anim;
+
+    [SerializeField]
+    private CinemachineImpulseSource _fukiImp;
+    [SerializeField]
+    private CinemachineImpulseSource _hitImp;
+
+    [SerializeField]
+    private Sprite[] sprites;
 
     [SerializeField]
     private Fukidashi _prefab;
@@ -29,15 +37,13 @@ namespace Game
 
     public void Init()
     {
-      _imp = GetComponent<CinemachineImpulseSource>();
+      _anim = GetComponent<Animator>();
 
       HpManager._instance?.Hp
       .Where(x => x <= 0)
       .Subscribe(x =>
       {
-        Destroy(gameObject);
-
-        _imp.GenerateImpulse();
+        _hitImp.GenerateImpulse();
       })
       .AddTo(this);
     }
@@ -46,6 +52,11 @@ namespace Game
     {
       var fukidashi = Instantiate(_prefab, transform.position, Quaternion.identity);
       fukidashi.Init(Vector3.left, _fukiSpeed);
+
+      _anim.SetTrigger("IsShout");
+      SoundManager._instance?.PlaySE("Shout");
+
+      _fukiImp.GenerateImpulse();
     }
 
     public void Hit()

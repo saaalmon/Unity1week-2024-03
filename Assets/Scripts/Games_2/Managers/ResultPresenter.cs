@@ -19,6 +19,7 @@ namespace Game
       .Subscribe(x =>
       {
         _view.gameObject.SetActive(true);
+        _view.SetResultCanvas();
         _view.SetResultScore(x);
       })
       .AddTo(this);

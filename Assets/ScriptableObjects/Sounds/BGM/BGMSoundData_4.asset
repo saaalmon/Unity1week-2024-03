@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1334409f07d814cbe8fd49aab1d23458, type: 3}
-  m_Name: SESoundData_1
+  m_Name: BGMSoundData_4
   m_EditorClassIdentifier: 
-  Audio: {fileID: 8300000, guid: 5d1f95273d539467c9460bc218c2b582, type: 3}
+  Audio: {fileID: 8300000, guid: 235a891cd2b62417c88ead850a459334, type: 3}

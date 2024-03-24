@@ -8,6 +8,8 @@ namespace Game
   public class GameMainPresenter : MonoBehaviour
   {
     [SerializeField]
+    private GameMainManager _gameMainManager;
+    [SerializeField]
     private ComboManager _comboManager;
     [SerializeField]
     private ScoreManager _scoreManager;
@@ -29,6 +31,13 @@ namespace Game
       .Subscribe(x =>
       {
         _view.SetScore(x);
+      })
+      .AddTo(this);
+
+      _gameMainManager.StressSubject
+      .Subscribe(x =>
+      {
+        _view.SetStress(x);
       })
       .AddTo(this);
     }

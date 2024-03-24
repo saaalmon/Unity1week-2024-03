@@ -65,6 +65,8 @@ namespace Game
     async public UniTask HitStop()
     {
       _imp.GenerateImpulse();
+      SoundManager._instance?.PlaySE("Hit_Enemy");
+
       Time.timeScale = 0.0f;
       await UniTask.Delay(System.TimeSpan.FromSeconds(0.2f), ignoreTimeScale: true);
       Time.timeScale = 1.0f;
