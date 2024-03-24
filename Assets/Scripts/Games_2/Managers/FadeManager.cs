@@ -23,9 +23,7 @@ namespace Game
       return DOTween.To(() => 0f, (x) =>
       {
         _material.SetFloat(_progressId, x);
-      }, 1f, _timer)
-      .OnStart(() => gameObject.SetActive(true))
-      .OnComplete(() => gameObject.SetActive(false));
+      }, 1f, _timer);
     }
 
     public Tweener FadeOut()
@@ -33,8 +31,7 @@ namespace Game
       return DOTween.To(() => 1f, (x) =>
       {
         _material.SetFloat(_progressId, x);
-      }, 0f, _timer)
-      .OnStart(() => gameObject.SetActive(true));
+      }, 0f, _timer);
     }
   }
 }

@@ -6,6 +6,8 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Cinemachine;
+using System.Threading;
 
 namespace Game
 {
@@ -29,24 +31,28 @@ namespace Game
     [SerializeField]
     private CanvasGroup _TitleCanvas;
 
-    public ISubject<int> ResultSubject => _resultSubject;
-    private readonly Subject<int> _resultSubject = new Subject<int>();
+    public ISubject<int> ResultScoreSubject => _resultScoreSubject;
+    private readonly Subject<int> _resultScoreSubject = new Subject<int>();
 
     // Awake is called before the first frame update
     async public UniTask Awake()
     {
+      CinemachineImpulseManager.Instance.IgnoreTimeScale = true;
       _TitleCanvas.gameObject.SetActive(true);
 
+      _timeManager.Init();
       await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
       _TitleCanvas.gameObject.SetActive(false);
 
-      _timeManager.Init();
       _hpManager.Init();
       _comboManager.Init();
       _enemyManager.Init();
       _scoreManager.Init();
       _playerManager.Init();
+
+      var cts = new CancellationTokenSource();
+      StartUpEnemy(cts).Forget();
 
       var updateObservable = this.UpdateAsObservable()
       .Subscribe(_ =>
@@ -55,13 +61,31 @@ namespace Game
       })
       .AddTo(this);
 
+      var enemyObservable = _enemyManager.EnemyDestroySubject
+      .Subscribe(_ =>
+      {
+        StartUpEnemy(cts).Forget();
+      })
+      .AddTo(this);
+
       await UniTask.WaitUntil(() => _timeManager.Timer.Value <= 0 || _hpManager.Hp.Value <= 0);
-      _playerManager.gameObject.SetActive(false);
-      _enemyManager.gameObject.SetActive(false);
+
+      cts.Cancel();
+
+      _playerManager.ClearInputKeyCode();
+      _enemyManager.DestroyEnemy();
 
       updateObservable.Dispose();
-      _resultSubject.OnNext(_scoreManager.Score.Value);
+      enemyObservable.Dispose();
+
       Debug.Log("Finish");
+
+      await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
+
+      // _playerManager.gameObject.SetActive(false);
+      // _enemyManager.gameObject.SetActive(false);
+
+      _resultScoreSubject.OnNext(_scoreManager.Score.Value);
 
       await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
@@ -71,10 +95,14 @@ namespace Game
       .Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    async private UniTask StartUpEnemy(CancellationTokenSource cts)
     {
+      _playerManager.ClearInputKeyCode();
 
+      await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f), cancellationToken: cts.Token);
+
+      _enemyManager.GenerateEnemy();
+      _playerManager.FeverJadge();
     }
   }
 }

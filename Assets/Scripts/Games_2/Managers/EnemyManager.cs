@@ -16,6 +16,11 @@ namespace Game
     [SerializeField]
     private Transform _enemyPos;
 
+    private Enemy _enemy;
+
+    public ISubject<Unit> EnemyDestroySubject => _enemyDestroySubject;
+    private readonly Subject<Unit> _enemyDestroySubject = new Subject<Unit>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,22 +35,27 @@ namespace Game
 
     public void Init()
     {
-      GenerateEnemy();
+
     }
 
     public void GenerateEnemy()
     {
       var spriteRand = Random.Range(0, _enemySprites.Length);
-      var enemy = Instantiate(_prefab, _enemyPos.position + new Vector3(-4, 0, 0), Quaternion.identity);
-      enemy.Init(_enemySprites[spriteRand], _enemyPos.position);
+      _enemy = Instantiate(_prefab, _enemyPos.position + new Vector3(-4, 0, 0), Quaternion.identity);
+      _enemy.Init(_enemySprites[spriteRand], _enemyPos.position);
 
-      enemy.DestroySubject
-      .Delay(System.TimeSpan.FromSeconds(1.5f))
+      _enemy.DestroySubject
       .Subscribe(_ =>
       {
-        GenerateEnemy();
+        _enemy = null;
+        _enemyDestroySubject.OnNext(Unit.Default);
       })
       .AddTo(this);
+    }
+
+    public void DestroyEnemy()
+    {
+      if (_enemy != null) Destroy(gameObject);
     }
   }
 }

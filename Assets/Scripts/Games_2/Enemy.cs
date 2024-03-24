@@ -59,6 +59,7 @@ namespace Game
       ScoreManager._instance?.Add(1000);
       _destroySubject.OnNext(Unit.Default);
       Instantiate(_hitParticle, transform.position, Quaternion.identity);
+      Destroy(gameObject);
     }
 
     async public UniTask HitStop()
@@ -67,17 +68,23 @@ namespace Game
       Time.timeScale = 0.0f;
       await UniTask.Delay(System.TimeSpan.FromSeconds(0.2f), ignoreTimeScale: true);
       Time.timeScale = 1.0f;
-      Destroy(gameObject);
     }
 
     async public UniTask FukidashiInterval()
     {
+      var token = this.GetCancellationTokenOnDestroy();
+
       for (var i = 0; i < _count; i++)
       {
-        await UniTask.Delay(System.TimeSpan.FromSeconds(0.4f));
+        await UniTask.Delay(System.TimeSpan.FromSeconds(0.3f), cancellationToken: token);
 
         GenerateFukidashi(i);
       }
+
+      await UniTask.Delay(System.TimeSpan.FromSeconds(3.0f), cancellationToken: token);
+
+      _destroySubject.OnNext(Unit.Default);
+      Destroy(gameObject);
     }
 
     public void GenerateFukidashi(int index)

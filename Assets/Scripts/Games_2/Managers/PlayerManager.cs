@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine.UI;
-using DG.Tweening;
-using Cinemachine;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 
 namespace Game
 {
   public class PlayerManager : MonoBehaviour
   {
-    private CinemachineImpulseSource _imp;
-
+    [SerializeField]
+    private ComboManager _comboManager;
     [SerializeField]
     private Player _player;
     [SerializeField]
     private KeyCode[] _inputKeyCode;
-    [SerializeField]
-    private KeyCode _feverKeyCode;
     [SerializeField]
     private int _count;
     [SerializeField]
@@ -29,6 +25,13 @@ namespace Game
     private Image _keycodeImage;
     [SerializeField]
     private Transform _parent;
+
+    [SerializeField]
+    private Light _defaultLight;
+    [SerializeField]
+    private Light _feverLight;
+    [SerializeField]
+    private ParticleSystem _feverParticle;
 
     public IReadOnlyReactiveCollection<KeyCode> InputKeyCodeList => _inputKeyCodeList;
     private ReactiveCollection<KeyCode> _inputKeyCodeList = new ReactiveCollection<KeyCode>();
@@ -91,25 +94,6 @@ namespace Game
             if (_inputKeyCodeList.Count <= 0)
             {
               _player.GenerateFukidashi();
-
-              // _imp.GenerateImpulse();
-              // Time.timeScale = 0.5f;
-              // await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f), ignoreTimeScale: true);
-              // Time.timeScale = 1.0f;
-
-              if (!_isFever && ComboManager._instance?.Combo.Value % _feverComboCountMax == 0 && ComboManager._instance?.Combo.Value != 0)
-              {
-                _isFever = true;
-                _feverCount = _feverCountMax;
-              }
-
-              Debug.Log(_isFever);
-              if (_isFever && _feverCount <= 0) _isFever = false;
-              else if (_isFever) _feverCount--;
-
-              if (_isFever) GenerateFeverKeyCode();
-              else GenerateKeyCode();
-              Debug.Log("Complite!");
             }
             break;
           }
@@ -119,10 +103,48 @@ namespace Game
 
     public void Init()
     {
-      _imp = GetComponent<CinemachineImpulseSource>();
-      CinemachineImpulseManager.Instance.IgnoreTimeScale = true;
 
-      GenerateKeyCode();
+    }
+
+    public void FeverJadge()
+    {
+      if (!_isFever && _comboManager.Combo.Value % _feverComboCountMax == 0 && _comboManager.Combo.Value != 0)
+      {
+        _isFever = true;
+        _feverCount = _feverCountMax;
+
+        _feverParticle.Play(true);
+
+        var seq = DOTween.Sequence()
+        .Append(DOTween.To(() => _defaultLight.intensity,
+                            (x) => _defaultLight.intensity = x,
+                            0, 0.4f))
+        .Join(DOTween.To(() => _feverLight.intensity,
+                            (x) => _feverLight.intensity = x,
+                            150, 0.4f))
+        .Play();
+      }
+
+      Debug.Log(_isFever);
+      if (_isFever && _feverCount <= 0)
+      {
+        _isFever = false;
+
+        _feverParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+        var seq = DOTween.Sequence()
+        .Append(DOTween.To(() => _defaultLight.intensity,
+                            (x) => _defaultLight.intensity = x,
+                            2, 0.4f))
+        .Join(DOTween.To(() => _feverLight.intensity,
+                            (x) => _feverLight.intensity = x,
+                            0, 0.4f))
+        .Play();
+      }
+      else if (_isFever) _feverCount--;
+
+      if (_isFever) GenerateFeverKeyCode();
+      else GenerateKeyCode();
     }
 
     public void GenerateKeyCode()
@@ -146,15 +168,20 @@ namespace Game
 
     public void GenerateFeverKeyCode()
     {
+      var rand = UnityEngine.Random.Range(0, _inputKeyCode.Length);
+
       for (var i = 0; i < _count; i++)
       {
-        _inputKeyCodeList.Add(SetFeverKeyCode());
-
+        var keycode = _inputKeyCode[rand];
+        _inputKeyCodeList.Add(keycode);
         var keyImage = Instantiate(_keycodeImage, _parent.transform);
         _keyImageList.Add(keyImage);
         _keyImageList[0].transform.localScale = Vector3.one * 2f;
 
-        keyImage.sprite = _keycodeImageSprites[0];
+        if (keycode == KeyCode.UpArrow) keyImage.sprite = _keycodeImageSprites[0];
+        if (keycode == KeyCode.DownArrow) keyImage.sprite = _keycodeImageSprites[1];
+        if (keycode == KeyCode.LeftArrow) keyImage.sprite = _keycodeImageSprites[2];
+        if (keycode == KeyCode.RightArrow) keyImage.sprite = _keycodeImageSprites[3];
       }
       _timer = 0f;
     }
@@ -166,10 +193,15 @@ namespace Game
       return key;
     }
 
-    private KeyCode SetFeverKeyCode()
+    public void ClearInputKeyCode()
     {
-      var key = _feverKeyCode;
-      return key;
+      foreach (var k in _keyImageList)
+      {
+        Destroy(k.gameObject);
+      }
+
+      _keyImageList.Clear();
+      _inputKeyCodeList.Clear();
     }
   }
 }

@@ -15,7 +15,7 @@ namespace Game
     // Start is called before the first frame update
     void Start()
     {
-      _gameManager.ResultSubject
+      _gameManager.ResultScoreSubject
       .Subscribe(x =>
       {
         _view.gameObject.SetActive(true);
