@@ -5,6 +5,8 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
+using DG.Tweening;
 
 namespace Game
 {
@@ -12,34 +14,47 @@ namespace Game
   {
     private Rigidbody rb;
     private BoxCollider coll;
+    private CinemachineImpulseSource imp;
 
+    [SerializeField]
+    private SpriteRenderer sp;
     [SerializeField]
     private FukidashiData[] _datas;
 
     [SerializeField]
-    private Image _fukiBack;
-    [SerializeField]
     private TextMeshProUGUI _fukiText;
+    [SerializeField]
+    private ParticleSystem _hitParticle;
 
     public void Init(Vector3 dir, float speed)
     {
       rb = GetComponent<Rigidbody>();
       coll = GetComponent<BoxCollider>();
+      imp = GetComponent<CinemachineImpulseSource>();
+
+      transform.localScale = Vector3.zero;
+      transform.DOScale(Vector3.one, 0.2f);
 
       rb.velocity = dir * speed;
 
       var data = _datas[Random.Range(0, _datas.Length)];
-      _fukiBack.sprite = data.Fukidashi;
+      sp.sprite = data.Fukidashi;
       _fukiText.text = data.Text;
 
-      Destroy(gameObject, 5.0f);
+      Destroy(gameObject, 3.0f);
 
       coll.OnTriggerEnterAsObservable()
       .Subscribe(x =>
       {
         if (x.TryGetComponent(out IHitable hitable))
         {
-          if (this.gameObject.layer == 8) Destroy(gameObject);
+          if (this.gameObject.layer == 8)
+          {
+            imp.GenerateImpulse();
+            Instantiate(_hitParticle, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+          }
+
           hitable.Hit();
         }
       })

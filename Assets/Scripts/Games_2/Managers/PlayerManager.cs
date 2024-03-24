@@ -52,10 +52,6 @@ namespace Game
     // Start is called before the first frame update
     void Start()
     {
-      _imp = GetComponent<CinemachineImpulseSource>();
-      CinemachineImpulseManager.Instance.IgnoreTimeScale = true;
-
-      GenerateKeyCode();
 
       // _inputKeyCodeList.ObserveAdd()
       // .Subscribe(_ =>
@@ -96,10 +92,10 @@ namespace Game
             {
               _player.GenerateFukidashi();
 
-              _imp.GenerateImpulse();
-              Time.timeScale = 0.5f;
-              await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f), ignoreTimeScale: true);
-              Time.timeScale = 1.0f;
+              // _imp.GenerateImpulse();
+              // Time.timeScale = 0.5f;
+              // await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f), ignoreTimeScale: true);
+              // Time.timeScale = 1.0f;
 
               if (!_isFever && ComboManager._instance?.Combo.Value % _feverComboCountMax == 0 && ComboManager._instance?.Combo.Value != 0)
               {
@@ -121,6 +117,13 @@ namespace Game
       }
     }
 
+    public void Init()
+    {
+      _imp = GetComponent<CinemachineImpulseSource>();
+      CinemachineImpulseManager.Instance.IgnoreTimeScale = true;
+
+      GenerateKeyCode();
+    }
 
     public void GenerateKeyCode()
     {

@@ -59,7 +59,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 480508995
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6060442725384354340
@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 7190907524304206730}
   - component: {fileID: 7162523488941249869}
   - component: {fileID: 3190628264756266713}
+  - component: {fileID: 9023178741549444167}
   m_Layer: 8
   m_Name: Fukidashi_Enemy
   m_TagString: Untagged
@@ -198,11 +199,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _datas:
-  - {fileID: 11400000, guid: dcbd5b9d49f384f898a3d2022daef93f, type: 2}
-  - {fileID: 11400000, guid: e2a7fa9454d8e400797ce4a07d15a22b, type: 2}
-  - {fileID: 11400000, guid: c49983354395c4c05a7e941e1e23a550, type: 2}
+  - {fileID: 11400000, guid: 46271874b5e1f46a4b3fd519647e6667, type: 2}
+  - {fileID: 11400000, guid: e7f12b3c5804141de83dde2fc6b3efcc, type: 2}
+  - {fileID: 11400000, guid: 6693b95a6ab7e41ac80186ee422f1ac5, type: 2}
   _fukiBack: {fileID: 7729926723296157341}
   _fukiText: {fileID: 1591232866907924603}
+--- !u!114 &9023178741549444167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395333259843532320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 3
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.1
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: 0.1, z: 0}
 --- !u!1 &4924221185668917437
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,8 +324,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: AAAAAAA
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0ff6d9aa213d94cf29fe16adea3ad45f, type: 2}
+  m_sharedMaterial: {fileID: -8811126577789631118, guid: 0ff6d9aa213d94cf29fe16adea3ad45f,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

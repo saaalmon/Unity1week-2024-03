@@ -36,11 +36,11 @@ namespace Game
     public void GenerateEnemy()
     {
       var spriteRand = Random.Range(0, _enemySprites.Length);
-      var enemy = Instantiate(_prefab, _enemyPos.position, Quaternion.identity);
-      enemy.Init(_enemySprites[spriteRand]);
+      var enemy = Instantiate(_prefab, _enemyPos.position + new Vector3(-4, 0, 0), Quaternion.identity);
+      enemy.Init(_enemySprites[spriteRand], _enemyPos.position);
 
       enemy.DestroySubject
-      .Delay(System.TimeSpan.FromSeconds(1.0f))
+      .Delay(System.TimeSpan.FromSeconds(1.5f))
       .Subscribe(_ =>
       {
         GenerateEnemy();
