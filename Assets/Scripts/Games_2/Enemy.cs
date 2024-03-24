@@ -86,7 +86,10 @@ namespace Game
       await UniTask.Delay(System.TimeSpan.FromSeconds(3.0f), cancellationToken: token);
 
       _destroySubject.OnNext(Unit.Default);
-      Destroy(gameObject);
+
+      transform.DOMove(transform.position + new Vector3(-4, 0, 0), 0.2f)
+      .OnComplete(() => Destroy(gameObject));
+
     }
 
     public void GenerateFukidashi(int index)

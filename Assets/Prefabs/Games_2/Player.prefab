@@ -155,6 +155,8 @@ MonoBehaviour:
   sprites: []
   _prefab: {fileID: 7361982253447968365, guid: b95d722af09b34df8b746bebf1582bd8, type: 3}
   _fukiSpeed: 8
+  _hitParticle: {fileID: 5585263587007289915, guid: 05f309e5b23e340f19390d7655848897,
+    type: 3}
 --- !u!114 &3470212433237088816
 MonoBehaviour:
   m_ObjectHideFlags: 0

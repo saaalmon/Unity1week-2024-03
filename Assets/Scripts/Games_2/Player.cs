@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using Cinemachine;
+using Cysharp.Threading.Tasks;
 
 namespace Game
 {
   public class Player : MonoBehaviour, IHitable
   {
     private Animator _anim;
+
+    [SerializeField]
+    private HpManager _hpManager;
 
     [SerializeField]
     private CinemachineImpulseSource _fukiImp;
@@ -22,6 +26,9 @@ namespace Game
     private Fukidashi _prefab;
     [SerializeField]
     private float _fukiSpeed;
+
+    [SerializeField]
+    private ParticleSystem _hitParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +46,14 @@ namespace Game
     {
       _anim = GetComponent<Animator>();
 
-      HpManager._instance?.Hp
+      _hpManager.Hp
+      .Skip(1)
       .Where(x => x <= 0)
       .Subscribe(x =>
       {
         _hitImp.GenerateImpulse();
+
+        HitStop().Forget();
       })
       .AddTo(this);
     }
@@ -63,6 +73,15 @@ namespace Game
     {
       HpManager._instance?.Sub();
       ComboManager._instance?.Set();
+    }
+
+    async public UniTask HitStop()
+    {
+      Instantiate(_hitParticle, transform.position, Quaternion.identity);
+
+      Time.timeScale = 0.0f;
+      await UniTask.Delay(System.TimeSpan.FromSeconds(0.2f), ignoreTimeScale: true);
+      Time.timeScale = 1.0f;
     }
   }
 }

@@ -86,7 +86,9 @@ namespace Game
 
               if (_keyImageList.Count > 0) _keyImageList[0].transform.localScale = Vector3.one * 2f;
 
-              if (_timer <= 0.5f) ScoreManager._instance?.Add(300);
+              if (_timer <= 0.3f) ScoreManager._instance?.Add(500);
+              else if (_timer <= 0.5f) ScoreManager._instance?.Add(400);
+              else if (_timer <= 0.8f) ScoreManager._instance?.Add(300);
               else if (_timer <= 1.0f) ScoreManager._instance?.Add(200);
               else ScoreManager._instance?.Add(100);
 

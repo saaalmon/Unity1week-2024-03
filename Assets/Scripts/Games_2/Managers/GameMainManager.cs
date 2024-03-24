@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Cinemachine;
 using System.Threading;
+using unityroom.Api;
 
 namespace Game
 {
@@ -33,8 +34,13 @@ namespace Game
     [SerializeField]
     private CanvasGroup _GameCanvas;
 
+    public static GameMainManager _instance;
+
     public ISubject<int> ResultScoreSubject => _resultScoreSubject;
     private readonly Subject<int> _resultScoreSubject = new Subject<int>();
+
+    public ISubject<Unit> ResultSubject => _resultSubject;
+    private readonly Subject<Unit> _resultSubject = new Subject<Unit>();
 
     public ISubject<string> StressSubject => _stressSubject;
     private readonly Subject<string> _stressSubject = new Subject<string>();
@@ -42,6 +48,8 @@ namespace Game
     // Awake is called before the first frame update
     async public UniTask Awake()
     {
+      _instance = this;
+
       CinemachineImpulseManager.Instance.IgnoreTimeScale = true;
       _TitleCanvas.gameObject.SetActive(true);
 
@@ -102,6 +110,7 @@ namespace Game
       cts.Cancel();
 
       _GameCanvas.gameObject.SetActive(false);
+      ResultSubject.OnNext(Unit.Default);
       StressSubject.OnNext("終了！");
       SoundManager._instance?.PlaySE("Shout");
 
@@ -120,6 +129,7 @@ namespace Game
       // _enemyManager.gameObject.SetActive(false);
 
       _resultScoreSubject.OnNext(_scoreManager.Score.Value);
+      UnityroomApiClient.Instance.SendScore(1, _scoreManager.Score.Value, ScoreboardWriteMode.Always);
 
       await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 

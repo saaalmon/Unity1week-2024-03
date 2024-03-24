@@ -32,8 +32,24 @@ namespace Game
       coll = GetComponent<BoxCollider>();
       imp = GetComponent<CinemachineImpulseSource>();
 
-      transform.localScale = Vector3.zero;
-      transform.DOScale(Vector3.one, 0.2f);
+      GameMainManager._instance?.ResultSubject
+      .Subscribe(_ =>
+      {
+        Instantiate(_hitParticle, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+      })
+      .AddTo(this);
+
+      var seq = DOTween.Sequence()
+      .OnStart(() =>
+      {
+        transform.localScale = Vector3.zero;
+        _fukiText.transform.localScale = Vector3.zero;
+      })
+      .Append(transform.DOScale(Vector3.one, 0.2f))
+      .Join(_fukiText.transform.DOScale(Vector3.one * 2.0f, 0.4f))
+      .Append(_fukiText.transform.DOScale(Vector3.one, 0.2f))
+      .Play();
 
       rb.velocity = dir * speed;
 
