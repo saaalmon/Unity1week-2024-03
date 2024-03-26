@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1334409f07d814cbe8fd49aab1d23458, type: 3}
   m_Name: BGMSoundData_2
   m_EditorClassIdentifier: 
-  Name: 
-  Audio: {fileID: 0}
+  Audio: {fileID: 8300000, guid: 40fd9f104cb194ad8a007cb010c6287b, type: 3}

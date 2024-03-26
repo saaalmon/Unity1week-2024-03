@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - PostProcess
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 
@@ -41,12 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Fukidashi
+    uniqueID: 480508995
+    locked: 0
+  - name: Enemy
+    uniqueID: 1615974781
+    locked: 0
+  - name: Player
+    uniqueID: 2564003979
+    locked: 0
+  - name: Particle
+    uniqueID: 1844171227
+    locked: 0
   - name: BackUI
     uniqueID: 2420104481
     locked: 0
+  - name: GameUI
+    uniqueID: 2849612323
+    locked: 0
   - name: FrontUI
     uniqueID: 3659975165
-    locked: 0
-  - name: FadeUI
-    uniqueID: 4180153179
     locked: 0

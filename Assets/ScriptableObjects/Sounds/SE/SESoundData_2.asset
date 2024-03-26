@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1334409f07d814cbe8fd49aab1d23458, type: 3}
   m_Name: SESoundData_2
   m_EditorClassIdentifier: 
-  Audio: {fileID: 0}
+  Audio: {fileID: 8300000, guid: 1519c8a7d41584fcbbac3bbfe042b4da, type: 3}

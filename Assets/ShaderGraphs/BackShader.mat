@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BackShader
-  m_Shader: {fileID: -6465566751694194690, guid: 21a729ce5d953418d9c0e21313f43432, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 21a729ce5d953418d9c0e21313f43432,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -53,7 +54,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.65
+    - _Alpha: 0.458
     - _EnableExternalAlpha: 0
     - _Progress: 1
     - _QueueControl: 0
@@ -66,7 +67,7 @@ Material:
     - _FirstColor: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SecondColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
+    - _SecondColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8077020455249118579
 MonoBehaviour:
