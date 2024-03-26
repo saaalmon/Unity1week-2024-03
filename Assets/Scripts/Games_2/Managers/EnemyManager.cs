@@ -55,7 +55,7 @@ namespace Game
 
     public void DestroyEnemy()
     {
-      if (_enemy != null) Destroy(gameObject);
+      if (_enemy != null) Destroy(_enemy.gameObject);
     }
   }
 }

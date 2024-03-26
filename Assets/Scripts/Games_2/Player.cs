@@ -71,6 +71,8 @@ namespace Game
 
     public void Hit()
     {
+      _anim.SetTrigger("IsHit");
+
       HpManager._instance?.Sub();
       ComboManager._instance?.Set();
     }

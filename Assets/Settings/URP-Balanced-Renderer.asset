@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     material: {fileID: 2100000, guid: 24bb3eabc1ea34be2a14e69e31a8fade, type: 2}
-    renderPassEvent: 550
+    renderPassEvent: 600
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

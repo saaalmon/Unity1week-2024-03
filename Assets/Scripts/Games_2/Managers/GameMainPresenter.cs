@@ -40,6 +40,13 @@ namespace Game
         _view.SetStress(x);
       })
       .AddTo(this);
+
+      _gameMainManager.CountDownSubject
+      .Subscribe(x =>
+      {
+        _view.SetCountDown(x);
+      })
+      .AddTo(this);
     }
   }
 }

@@ -16,6 +16,8 @@ namespace Game
     [SerializeField]
     private TextMeshProUGUI _stressText;
     [SerializeField]
+    private TextMeshProUGUI _countDownText;
+    [SerializeField]
     private Image _stressPanel;
 
     public void SetCombo(int combo)
@@ -59,6 +61,22 @@ namespace Game
       .Append(_stressPanel.transform.DOScale(1.0f, 0.3f))
       .Append(_stressPanel.DOFade(0.0f, 0.1f))
       .Join(_stressText.DOFade(0.0f, 0.1f))
+      .Play();
+    }
+
+    public void SetCountDown(int num)
+    {
+      var seq = DOTween.Sequence()
+      .OnStart(() =>
+      {
+        _countDownText.text = num.ToString();
+        _countDownText.transform.localScale = Vector3.zero;
+
+        _countDownText.alpha = 1.0f;
+      })
+      .Append(_countDownText.transform.DOScale(1.5f, 0.5f).SetEase(Ease.OutQuint))
+      .Append(_countDownText.transform.DOScale(1.0f, 0.3f))
+      .Append(_countDownText.DOFade(0.0f, 0.1f))
       .Play();
     }
   }

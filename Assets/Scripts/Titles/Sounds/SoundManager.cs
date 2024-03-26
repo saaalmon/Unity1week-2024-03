@@ -99,6 +99,11 @@ public class SoundManager : MonoBehaviour
 
   void Start()
   {
+    Init();
+  }
+
+  public void Init()
+  {
     SetBgmVolume(_bgmVolume);
     SetSeVolume(_seVolume);
   }

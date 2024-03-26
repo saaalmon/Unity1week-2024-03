@@ -45,6 +45,9 @@ namespace Game
     public ISubject<string> StressSubject => _stressSubject;
     private readonly Subject<string> _stressSubject = new Subject<string>();
 
+    public ISubject<int> CountDownSubject => _countDownSubject;
+    private readonly Subject<int> _countDownSubject = new Subject<int>();
+
     // Awake is called before the first frame update
     async public UniTask Awake()
     {
@@ -109,19 +112,20 @@ namespace Game
 
       cts.Cancel();
 
-      _GameCanvas.gameObject.SetActive(false);
       ResultSubject.OnNext(Unit.Default);
       StressSubject.OnNext("終了！");
       SoundManager._instance?.PlaySE("Shout");
 
-      _playerManager.ClearInputKeyCode();
       _enemyManager.DestroyEnemy();
+      _playerManager.ClearInputKeyCode();
 
       updateObservable.Dispose();
       enemyObservable.Dispose();
       textObservable.Dispose();
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.5f));
+
+      _GameCanvas.gameObject.SetActive(false);
 
       SoundManager._instance?.PlayBGM("BGM_Result");
 
@@ -138,7 +142,7 @@ namespace Game
       .OnComplete(() => SceneManager.LoadScene("GameScene_2"))
       .Play();
     }
-
+    
     async private UniTask StartUpEnemy(CancellationTokenSource cts)
     {
       _playerManager.ClearInputKeyCode();
@@ -151,17 +155,17 @@ namespace Game
 
     async public UniTask CountDown()
     {
-      StressSubject.OnNext("3");
+      CountDownSubject.OnNext(3);
       SoundManager._instance?.PlaySE("CountDown", 1.2f);
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
 
-      StressSubject.OnNext("2");
+      CountDownSubject.OnNext(2);
       SoundManager._instance?.PlaySE("CountDown", 1.4f);
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
 
-      StressSubject.OnNext("1");
+      CountDownSubject.OnNext(1);
       SoundManager._instance?.PlaySE("CountDown", 1.6f);
     }
   }
