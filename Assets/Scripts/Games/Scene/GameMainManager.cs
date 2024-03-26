@@ -98,7 +98,7 @@ namespace Game
       .Take(1)
       .Subscribe(_ =>
       {
-        CountDown().Forget();
+        CountDown(cts).Forget();
       })
       .AddTo(this);
 
@@ -148,17 +148,17 @@ namespace Game
       _playerManager.FeverJadge();
     }
 
-    async private UniTask CountDown()
+    async private UniTask CountDown(CancellationTokenSource cts)
     {
       _countDownSubject.OnNext(3);
       SoundManager._instance?.PlaySE("CountDown", 1.2f);
 
-      await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
+      await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f), cancellationToken: cts.Token);
 
       _countDownSubject.OnNext(2);
       SoundManager._instance?.PlaySE("CountDown", 1.4f);
 
-      await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
+      await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f), cancellationToken: cts.Token);
 
       _countDownSubject.OnNext(1);
       SoundManager._instance?.PlaySE("CountDown", 1.6f);

@@ -7,9 +7,6 @@ namespace Game
 {
   public class ScoreManager : MonoBehaviour
   {
-    [SerializeField]
-    private int _scoreMax;
-
     public static ScoreManager _instance;
 
     public IReadOnlyReactiveProperty<int> Score => _score;

@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class ComboManager : MonoBehaviour
+namespace Game
 {
-  public static ComboManager _instance;
-
-  public IReadOnlyReactiveProperty<int> Combo => _combo;
-  private IntReactiveProperty _combo = new IntReactiveProperty(0);
-
-  public void Init()
+  public class ComboManager : MonoBehaviour
   {
-    _instance = this;
-    _combo.Value = 0;
-  }
+    public static ComboManager _instance;
 
-  public void Set(int combo = 0)
-  {
-    _combo.Value = combo;
-  }
+    public IReadOnlyReactiveProperty<int> Combo => _combo;
+    private IntReactiveProperty _combo = new IntReactiveProperty(0);
 
-  public void Add(int combo = 1)
-  {
-    _combo.Value += combo;
-  }
+    public void Init()
+    {
+      _instance = this;
+      _combo.Value = 0;
+    }
 
-  public void Sub(int combo = 1)
-  {
-    _combo.Value -= combo;
+    public void Set(int combo = 0)
+    {
+      _combo.Value = combo;
+    }
+
+    public void Add(int combo = 1)
+    {
+      _combo.Value += combo;
+    }
+
+    public void Sub(int combo = 1)
+    {
+      _combo.Value -= combo;
+    }
   }
 }
