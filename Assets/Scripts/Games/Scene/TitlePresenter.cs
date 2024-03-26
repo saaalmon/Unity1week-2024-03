@@ -8,13 +8,13 @@ namespace Game
   public class TitlePresenter : MonoBehaviour
   {
     [SerializeField]
+    private GameMainManager _gameManager;
+    [SerializeField]
     private TitleView _view;
 
     // Start is called before the first frame update
     void Start()
     {
-      _view.Init();
-
       _view.BgmSlider.OnValueChangedAsObservable()
       .Subscribe(x =>
       {

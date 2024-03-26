@@ -1670,7 +1670,7 @@ MonoBehaviour:
   _scoreText: {fileID: 1615245602}
   _stressText: {fileID: 378124738}
   _countDownText: {fileID: 496421478}
-  _stressPanel: {fileID: 1297713476}
+  _stressPanel: {fileID: 1297713478}
 --- !u!1001 &228602488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7579,9 +7579,9 @@ GameObject:
   - component: {fileID: 1159596073}
   - component: {fileID: 1159596070}
   - component: {fileID: 1159596071}
+  - component: {fileID: 1159596075}
   - component: {fileID: 1159596072}
   - component: {fileID: 1159596069}
-  - component: {fileID: 1159596075}
   - component: {fileID: 1159596074}
   m_Layer: 0
   m_Name: GameMainManager
@@ -7618,12 +7618,11 @@ MonoBehaviour:
   _playerManager: {fileID: 19098689}
   _timeManager: {fileID: 1159596066}
   _hpManager: {fileID: 1159596070}
-  _comboManager: {fileID: 1159596071}
   _enemyManager: {fileID: 1361440627}
-  _scoreManager: {fileID: 1159596073}
   _fadeManager: {fileID: 1159596074}
-  _TitleCanvas: {fileID: 1427030330}
-  _GameCanvas: {fileID: 228513613}
+  _titleCanvas: {fileID: 1427030330}
+  _gameMainCanvas: {fileID: 228513613}
+  _resultCanvas: {fileID: 1698311361}
 --- !u!4 &1159596068
 Transform:
   m_ObjectHideFlags: 0
@@ -7652,6 +7651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1159596067}
+  _scoreManager: {fileID: 1159596073}
   _view: {fileID: 1698311366}
 --- !u!114 &1159596070
 MonoBehaviour:
@@ -7706,7 +7706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d173289bd0dbe4956b66c48c4014d9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreMax: 99999
+  _scoreMax: 999999
 --- !u!114 &1159596074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7733,6 +7733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b55a1ff55714425bb02d288046760e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1159596067}
   _view: {fileID: 1427030335}
 --- !u!4 &1170521453 stripped
 Transform:
@@ -8680,6 +8681,7 @@ GameObject:
   - component: {fileID: 1297713475}
   - component: {fileID: 1297713477}
   - component: {fileID: 1297713476}
+  - component: {fileID: 1297713478}
   m_Layer: 5
   m_Name: StressPanel
   m_TagString: Untagged
@@ -8745,6 +8747,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297713474}
   m_CullTransparentMesh: 1
+--- !u!225 &1297713478
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297713474}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!4 &1300736523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 305c2ebd9a73547099dd124acdffc8aa,
@@ -11224,8 +11238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a8b63ca08aa40bba4798b1c4aac046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ResultScoreText: {fileID: 532243761}
-  _ResultCanvas: {fileID: 1698311361}
+  _resultScoreText: {fileID: 532243761}
+  _resultPanel: {fileID: 2139713507}
 --- !u!1001 &1698727289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13852,6 +13866,7 @@ GameObject:
   - component: {fileID: 2139713504}
   - component: {fileID: 2139713506}
   - component: {fileID: 2139713505}
+  - component: {fileID: 2139713507}
   m_Layer: 5
   m_Name: ResultPanel
   m_TagString: Untagged
@@ -13919,6 +13934,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139713503}
   m_CullTransparentMesh: 1
+--- !u!225 &2139713507
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139713503}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &7006915138965516455
 PrefabInstance:
   m_ObjectHideFlags: 0

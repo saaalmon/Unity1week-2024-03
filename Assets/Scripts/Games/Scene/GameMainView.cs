@@ -18,7 +18,7 @@ namespace Game
     [SerializeField]
     private TextMeshProUGUI _countDownText;
     [SerializeField]
-    private Image _stressPanel;
+    private CanvasGroup _stressPanel;
 
     public void SetCombo(int combo)
     {
@@ -54,7 +54,7 @@ namespace Game
         _stressText.text = text.ToString();
         _stressPanel.transform.localScale = Vector3.zero;
 
-        _stressPanel.color = Color.white;
+        _stressPanel.alpha = 1.0f;
         _stressText.alpha = 1.0f;
       })
       .Append(_stressPanel.transform.DOScale(1.5f, 0.5f).SetEase(Ease.OutQuint))

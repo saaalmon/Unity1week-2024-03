@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using UniRx;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
 namespace Game
@@ -55,17 +54,11 @@ namespace Game
     // Start is called before the first frame update
     void Start()
     {
-
-      // _inputKeyCodeList.ObserveAdd()
-      // .Subscribe(_ =>
-      // {
-
-      // })
-      // .AddTo(this);
+      
     }
 
     // Update is called once per frame
-    async public UniTask Update()
+    public void Update()
     {
       _timer += Time.deltaTime;
 

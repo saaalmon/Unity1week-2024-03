@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UniRx;
-using UniRx.Triggers;
 using Cinemachine;
 using DG.Tweening;
 
@@ -13,7 +12,7 @@ namespace Game
   public class Enemy : MonoBehaviour, IHitable
   {
     private SpriteRenderer sp;
-    private CinemachineImpulseSource _imp;
+    private CinemachineImpulseSource imp;
 
     [SerializeField]
     private Fukidashi _prefab;
@@ -42,7 +41,7 @@ namespace Game
     public void Init(Sprite sprite, Vector3 point)
     {
       sp = GetComponent<SpriteRenderer>();
-      _imp = GetComponent<CinemachineImpulseSource>();
+      imp = GetComponent<CinemachineImpulseSource>();
 
       sp.sprite = sprite;
 
@@ -64,7 +63,7 @@ namespace Game
 
     async public UniTask HitStop()
     {
-      _imp.GenerateImpulse();
+      imp.GenerateImpulse();
       SoundManager._instance?.PlaySE("Hit_Enemy");
 
       Time.timeScale = 0.0f;

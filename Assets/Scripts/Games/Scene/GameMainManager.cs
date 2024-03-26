@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using Cinemachine;
 using System.Threading;
-using unityroom.Api;
 
 namespace Game
 {
@@ -21,23 +20,18 @@ namespace Game
     [SerializeField]
     private HpManager _hpManager;
     [SerializeField]
-    private ComboManager _comboManager;
-    [SerializeField]
     private EnemyManager _enemyManager;
-    [SerializeField]
-    private ScoreManager _scoreManager;
     [SerializeField]
     private FadeManager _fadeManager;
 
     [SerializeField]
-    private CanvasGroup _TitleCanvas;
+    private CanvasGroup _titleCanvas;
     [SerializeField]
-    private CanvasGroup _GameCanvas;
+    private CanvasGroup _gameMainCanvas;
+    [SerializeField]
+    private CanvasGroup _resultCanvas;
 
     public static GameMainManager _instance;
-
-    public ISubject<int> ResultScoreSubject => _resultScoreSubject;
-    private readonly Subject<int> _resultScoreSubject = new Subject<int>();
 
     public ISubject<Unit> ResultSubject => _resultSubject;
     private readonly Subject<Unit> _resultSubject = new Subject<Unit>();
@@ -51,33 +45,35 @@ namespace Game
     // Awake is called before the first frame update
     async public UniTask Awake()
     {
+      //タイトルシーン初期化
       _instance = this;
-
       CinemachineImpulseManager.Instance.IgnoreTimeScale = true;
-      _TitleCanvas.gameObject.SetActive(true);
 
       SoundManager._instance?.StopBGM();
       SoundManager._instance?.PlayBGM("BGM_Title");
 
+      _titleCanvas.gameObject.SetActive(true);
+
       _timeManager.Init();
+      _hpManager.Init();
+
       await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
+      //ゲームシーン初期化
       SoundManager._instance?.StopBGM();
 
-      _TitleCanvas.gameObject.SetActive(false);
-      _GameCanvas.gameObject.SetActive(true);
+      _titleCanvas.gameObject.SetActive(false);
+      _gameMainCanvas.gameObject.SetActive(true);
 
       StressSubject.OnNext("お断りします！！");
       SoundManager._instance?.PlaySE("Shout");
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.5f));
 
+      //ゲームシーン
       SoundManager._instance?.PlayBGM("BGM_Game");
 
-      _hpManager.Init();
-      _comboManager.Init();
       _enemyManager.Init();
-      _scoreManager.Init();
       _playerManager.Init();
 
       var cts = new CancellationTokenSource();
@@ -108,12 +104,12 @@ namespace Game
 
       await UniTask.WaitUntil(() => _timeManager.Timer.Value <= 0 || _hpManager.Hp.Value <= 0);
 
+      //リザルトシーン初期化
       SoundManager._instance?.StopBGM();
 
       cts.Cancel();
 
-      ResultSubject.OnNext(Unit.Default);
-      StressSubject.OnNext("終了！");
+      _stressSubject.OnNext("終了！");
       SoundManager._instance?.PlaySE("Shout");
 
       _enemyManager.DestroyEnemy();
@@ -125,18 +121,17 @@ namespace Game
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.5f));
 
-      _GameCanvas.gameObject.SetActive(false);
-
+      //リザルトシーン
       SoundManager._instance?.PlayBGM("BGM_Result");
 
-      // _playerManager.gameObject.SetActive(false);
-      // _enemyManager.gameObject.SetActive(false);
+      _gameMainCanvas.gameObject.SetActive(false);
+      _resultCanvas.gameObject.SetActive(true);
 
-      _resultScoreSubject.OnNext(_scoreManager.Score.Value);
-      UnityroomApiClient.Instance.SendScore(1, _scoreManager.Score.Value, ScoreboardWriteMode.Always);
+      _resultSubject.OnNext(Unit.Default);
 
       await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
+      //タイトルへ
       var seq = DOTween.Sequence()
       .Append(_fadeManager.FadeOut())
       .OnComplete(() => SceneManager.LoadScene("GameScene"))
@@ -153,19 +148,19 @@ namespace Game
       _playerManager.FeverJadge();
     }
 
-    async public UniTask CountDown()
+    async private UniTask CountDown()
     {
-      CountDownSubject.OnNext(3);
+      _countDownSubject.OnNext(3);
       SoundManager._instance?.PlaySE("CountDown", 1.2f);
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
 
-      CountDownSubject.OnNext(2);
+      _countDownSubject.OnNext(2);
       SoundManager._instance?.PlaySE("CountDown", 1.4f);
 
       await UniTask.Delay(System.TimeSpan.FromSeconds(1.0f));
 
-      CountDownSubject.OnNext(1);
+      _countDownSubject.OnNext(1);
       SoundManager._instance?.PlaySE("CountDown", 1.6f);
     }
   }

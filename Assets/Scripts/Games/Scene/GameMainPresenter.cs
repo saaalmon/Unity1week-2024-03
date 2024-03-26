@@ -20,6 +20,9 @@ namespace Game
     // Start is called before the first frame update
     void Start()
     {
+      _comboManager.Init();
+      _scoreManager.Init();
+
       _comboManager.Combo
       .Subscribe(x =>
       {

@@ -14,11 +14,5 @@ namespace Game
 
     public Slider BgmSlider => _bgmSlider;
     public Slider SeSlider => _seSlider;
-
-    public void Init()
-    {
-      //   _bgmSlider.value = SoundManager._instance.BgmVol.Value;
-      //   _seSlider.value = SoundManager._instance.SeVol.Value;
-    }
   }
 }
